@@ -75,15 +75,16 @@ class Vocab:
 
 
 # ========== 使用示例 ==========
-remove_chars = {"⻊", "⿰", "⿱", "□", "○", "●", "*", "+", "-", "0", "1", "2", "3", "=", "f", "{", "}", "."}
-vocab = Vocab("D:\\poems\\corpus.txt", remove_chars=remove_chars)
+if __name__ == "__main__":
+    remove_chars = {"⻊", "⿰", "⿱", "□", "○", "●", "*", "+", "-", "0", "1", "2", "3", "=", "f", "{", "}", "."}
+    vocab = Vocab("D:\\poems\\corpus.txt", remove_chars=remove_chars)
 
-print("词表大小:", len(vocab))
-vocab.show_sample(10)
+    print("词表大小:", len(vocab))
+    vocab.show_sample(10)
 
-# 测试 encode / decode
-sample_text ="冷眼向洋看世界，熱风吹雨洒江天"
-encoded = vocab.encode(sample_text)
-decoded = vocab.decode(encoded)
-print("原文:", sample_text)
-print("编码:", encoded)
+    # 测试 encode / decode
+    sample_text ="冷眼向洋看世界，熱风吹雨洒江天"
+    encoded = vocab.encode(sample_text)
+    decoded = vocab.decode(encoded)
+    print("原文:", sample_text)
+    print("编码:", encoded)
