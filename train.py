@@ -50,14 +50,25 @@ if __name__ =='__main__':
     for epoch in range(num_epochs):
         model.train()
         total_loss = 0
-        for x, y in dataloader:
+        print(f"Epoch {epoch + 1}/{num_epochs} starting...")
+
+        for step, (x, y) in enumerate(dataloader, start=1):
             x, y = x.to(device), y.to(device)
             optimizer.zero_grad()
-            out,_=model.forward(x)
-            loss=criterion(out.reshape(-1,out.size(-1)), y.reshape(-1))
+            out, _ = model(x)
+            loss = criterion(out.reshape(-1, out.size(-1)), y.reshape(-1))
             loss.backward()
             optimizer.step()
             total_loss += loss.item()
+
+            # 每 100 步打印一次信息
+            if step % 100 == 0:
+                print(f"  Step [{step}/{len(dataloader)}], "
+                      f"Batch Loss: {loss.item():.4f}, "
+                      f"Avg Loss: {total_loss / step:.4f}")
+
         avg_loss = total_loss / len(dataloader)
-        print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
+        print(f"Epoch {epoch + 1} completed. Average Loss: {avg_loss:.4f}\n")
+
     torch.save(model.state_dict(), "lstm_poem.pth")
+    print("Model saved as lstm_poem.pth")
