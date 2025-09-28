@@ -17,7 +17,7 @@
 #     print(itos[i])
 import torch 
 from torch import nn
-import numpy
+
 
 class Vocab:
     def __init__(self, filepath, remove_chars=None, encoding="utf-8",embed_dim=300):
